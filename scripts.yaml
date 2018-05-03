@@ -1,0 +1,13 @@
+'1524770684908':
+  alias: Camera Snapshot
+  sequence:
+  - data:
+      entity_id: camera.camera
+      filename: /home/homeassistant/.homeassistant/downloads/test.jpg
+    service: camera.snapshot
+'1524835542356':
+  alias: Turn off All Lights
+  sequence:
+  - data:
+      entity_id: group.all_lights
+    service: homeassistant.turn_off

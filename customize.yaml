@@ -1,0 +1,8 @@
+group.all_devices: {}
+light.entrance:
+  hidden: true
+light.kitchen_2:
+  hidden: true
+group.all_lights: {}
+light.bedroom_2:
+  hidden: true

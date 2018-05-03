@@ -1,0 +1,32 @@
+- action:
+  - service: camera.disable_motion_detection
+  alias: Motion Off when home
+  condition: []
+  id: '1524768886932'
+  trigger:
+  - entity_id: device_tracker.benjamins_iphone
+    event: enter
+    platform: zone
+    zone: zone.home
+- action:
+  - service: camera.enable_motion_detection
+  alias: Motion On when not home
+  condition: []
+  id: '1524769177462'
+  trigger:
+  - entity_id: device_tracker.benjamins_iphone
+    event: leave
+    platform: zone
+    zone: zone.home
+- action:
+  - alias: ''
+    data: {}
+    service: script.1524835542356
+  alias: Turn off All Lights when Leaving
+  condition: []
+  id: '1524835612830'
+  trigger:
+  - entity_id: device_tracker.benjamins_iphone
+    event: leave
+    platform: zone
+    zone: zone.home

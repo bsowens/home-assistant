@@ -1,0 +1,129 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 30
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/New_York
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+
+http:
+  api_password: !secret pi_password
+  ssl_certificate: !secret dns_ssl_certificate
+  ssl_key: !secret dns_ssl_key
+  base_url: !secret dns_base_url
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# Tracked history is kept for 10 days
+recorder:
+  purge_keep_days: 10
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Weather prediction
+sensor:
+  - platform: yr
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+switch:
+  - platform: tplink
+    host: !secret tp_link_host
+
+logger:
+
+duckdns:
+  domain: !secret dns_domain
+  access_token: !secret dns_access_token
+
+neato:
+  username: !secret neato_user
+  password: !secret neato_password
+
+# yi home camera (broken)
+camera:
+  - platform: yi
+    name: Camera
+    host: '10.0.0.209'
+    password: password
+    ffmpeg_arguments: '-vf scale=800:450'
+    path: /tmp/sd/record
+
+mqtt:
+  broker: !secret mqtt_broker
+  port: !secret mqtt_port
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+
+device_tracker:
+  - platform: owntracks
+    max_gps_accuracy: 200
+    waypoints: True
+    mqtt_topic: "owntracks/#"
+    events_only: True
+  - platform: ping
+    new_device_defaults:
+      track_new_devices: True
+    consider_home: 600
+    hosts:
+      ben_ping: !secret ben_phone_ip
+      riley_ping: !secret riley_phone_ip
+  - platform: bayesian
+    prior: 0.6
+    name: 'Bayesian Presence Ben'
+    probability_threshold: 0.82
+    observations:
+      - entity_id: 'device_tracker.ben_ping'
+        prob_given_true: 0.9
+        prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: 'device_tracker.ben_phone'
+        prob_given_true: 0.9
+        prob_given_false: 0.2
+        platform: 'state'
+        to_state: 'home'

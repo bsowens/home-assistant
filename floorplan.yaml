@@ -1,0 +1,24 @@
+name: Floorplan
+image: /local/custom_ui/floorplan/floorplan.svg
+stylesheet: /local/custom_ui/floorplan/floorplan.css
+warnings:
+
+groups:
+
+
+        - name: Lights
+          entities:
+            - light.kitchen
+            - light.living_room
+            - light.living_room_ceiling
+            - light.living_room_floor
+            - light.entrance
+          states:
+            - state: 'on'
+              class: 'light-on'
+            - state: 'off'
+              class: 'light-off'
+          action:
+            domain: homeassistant   # This optional parameter allows you to use other services such as homeassistant.toggle like here.
+            service: toggle
+

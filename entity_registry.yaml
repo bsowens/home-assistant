@@ -1,0 +1,30 @@
+switch.herb_light:
+  platform: wemo
+  unique_id: 221715K0100950
+media_player.living_room:
+  platform: sonos
+  unique_id: RINCON_7828CA03AFD001400
+light.entrance:
+  platform: hue
+  unique_id: 00:17:88:01:02:95:21:9d-0b
+light.bedroom_2:
+  platform: hue
+  unique_id: 00:17:88:01:02:1c:d7:16-0b
+light.living_room_ceiling:
+  platform: hue
+  unique_id: 00:17:88:01:02:8a:7c:68-0b
+light.kitchen_2:
+  platform: hue
+  unique_id: 00:17:88:01:02:95:21:ec-0b
+light.living_room_floor:
+  platform: hue
+  unique_id: 00:17:88:01:00:d8:80:a4-0b
+media_player.ben_s_macbook_pro:
+  platform: plex
+  unique_id: bdok6wgltqb7aj6h9qs0qqia
+sensor.benjamins_iphone_battery_state:
+  platform: ios
+  unique_id: state_benjamins_iphone
+sensor.benjamins_iphone_battery_level:
+  platform: ios
+  unique_id: level_benjamins_iphone
