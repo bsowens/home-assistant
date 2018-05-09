@@ -13,15 +13,22 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
 
+
 # Show links to resources in log and frontend
 #introduction:
 
 # Enables the frontend
 frontend:
+  extra_html_url:
+    - /local/custom_ui/state-card-custom-ui.html
+  extra_html_url_es5:
+    - /local/custom_ui/state-card-custom-ui-es5.html
 
 # Enables configuration UI
 config:
 
+customizer:
+  custom_ui: local
 
 http:
   api_password: !secret pi_password
@@ -34,6 +41,8 @@ updater:
 
 # Discover some devices automatically
 discovery:
+  ignore:
+    - plex_mediaserver
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -83,14 +92,12 @@ neato:
   username: !secret neato_user
   password: !secret neato_password
 
-# yi home camera (broken)
-camera:
-  - platform: yi
-    name: Camera
-    host: '10.0.0.209'
-    password: password
-    ffmpeg_arguments: '-vf scale=800:450'
-    path: /tmp/sd/record
+
+remote:
+  - platform: harmony
+    name: Media Center
+    host: 10.0.0.171
+    activity: Watch TV
 
 mqtt:
   broker: !secret mqtt_broker
@@ -98,6 +105,11 @@ mqtt:
   username: !secret mqtt_username
   password: !secret mqtt_password
 
+climate:
+  - platform: generic_thermostat
+    name: Living Room
+    heater: switch.study_heater
+    target_sensor: sensor.study_temperature
 
 device_tracker:
   - platform: owntracks
@@ -112,6 +124,8 @@ device_tracker:
     hosts:
       ben_ping: !secret ben_phone_ip
       riley_ping: !secret riley_phone_ip
+
+binary_sensor:
   - platform: bayesian
     prior: 0.6
     name: 'Bayesian Presence Ben'
@@ -119,7 +133,7 @@ device_tracker:
     observations:
       - entity_id: 'device_tracker.ben_ping'
         prob_given_true: 0.9
-        prob_given_false: 0.1
+        prob_given_false: 0.3
         platform: 'state'
         to_state: 'home'
       - entity_id: 'device_tracker.ben_phone'
@@ -127,3 +141,8 @@ device_tracker:
         prob_given_false: 0.2
         platform: 'state'
         to_state: 'home'
+
+usps:
+    username: !secret usps_username
+    password: !secret usps_password
+    driver: phantomjs

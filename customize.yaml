@@ -1,8 +1,15 @@
 group.all_devices: {}
-light.entrance:
-  hidden: true
 light.kitchen_2:
   hidden: true
 group.all_lights: {}
 light.bedroom_2:
   hidden: true
+vacuum.neato:
+  custom_ui_state_card: state-card-custom-ui
+  friendly_name: 'Neato'
+  extra_badge:
+    attribute: battery_level
+  templates:
+    state: if (state === 'on') return 'Active'; else return state;
+    extra_data_template: if (!${attributes.status}) return 'Having Trouble'; else return ${attributes.status};
+customizer.customizer: {}

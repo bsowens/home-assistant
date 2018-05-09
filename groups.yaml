@@ -1,0 +1,11 @@
+all_lights:
+    entities:
+      - switch.christmas_lights_
+      - switch.herb_light
+
+vacuum:
+    entities:
+      - switch.neato_schedule
+      - vacuum.neato
+      - camera.neato_cleaning_map
+
